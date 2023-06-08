@@ -9,7 +9,6 @@ on:
 
 jobs:
   publish-lab3:
-    needs: build
     runs-on: ubuntu-latest
     permissions:
       contents: read
