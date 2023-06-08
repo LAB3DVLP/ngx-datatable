@@ -21,6 +21,6 @@ jobs:
           registry-url: https://npm.lab3dvlp.com/
       - run: npm ci
       - run: npm run package
-      - run: cd dist && npm publish
+      - run: cd dist/swimlane/ngx-datatable/ && npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.LAB3_NPM_TOKEN}}
