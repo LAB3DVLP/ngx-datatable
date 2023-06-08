@@ -16,7 +16,7 @@ jobs:
         with:
           node-version: 18
       - run: npm ci
-      - run: npm test
+      - run: npm run package
 
   publish-lab3:
     needs: build
@@ -31,7 +31,6 @@ jobs:
           node-version: 18
           registry-url: https://npm.lab3dvlp.com/
       - run: npm ci
-      - run: npm package
       - run: cd dist
       - run: npm publish
         env:
