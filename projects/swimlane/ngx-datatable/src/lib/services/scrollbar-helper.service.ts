@@ -9,13 +9,16 @@ import { DOCUMENT } from '@angular/common';
 export class ScrollbarHelper {
   width: number = this.getWidth();
 
-  constructor(@Inject(DOCUMENT) private document: any) {}
+  constructor(@Inject(DOCUMENT) private document: Document) {}
 
   getWidth(): number {
+    if (!this.document) {
+      return 16;
+    }
+
     const outer = this.document.createElement('div');
     outer.style.visibility = 'hidden';
     outer.style.width = '100px';
-    outer.style.msOverflowStyle = 'scrollbar';
     this.document.body.appendChild(outer);
 
     const widthNoScroll = outer.offsetWidth;
