@@ -1,7 +1,7 @@
 import { Input, Output, EventEmitter, Directive, TemplateRef, ContentChild } from '@angular/core';
 import { DatatableGroupHeaderTemplateDirective } from './body-group-header-template.directive';
 
-@Directive({ selector: 'ngx-datatable-group-header' })
+@Directive({ selector: 'ngx-datatable-group-header', standalone: false, })
 export class DatatableGroupHeaderDirective {
   /**
    * Row height is required when virtual scroll is enabled.

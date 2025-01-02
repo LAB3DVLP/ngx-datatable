@@ -10,7 +10,7 @@ import { takeUntil } from 'rxjs/operators';
  *   http://stackoverflow.com/questions/35662530/how-to-implement-drag-and-drop-in-angular2
  *
  */
-@Directive({ selector: '[draggable]' })
+@Directive({ selector: '[draggable]', standalone: false })
 export class DraggableDirective implements OnDestroy, OnChanges {
   @Input() dragEventTarget: any;
   @Input() dragModel: any;

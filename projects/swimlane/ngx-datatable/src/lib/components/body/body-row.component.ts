@@ -47,7 +47,8 @@ import { translateXY } from '../../utils/translate';
       >
       </datatable-body-cell>
     </div>
-  `
+  `,
+  standalone: false,
 })
 export class DataTableBodyRowComponent implements DoCheck {
   @Input() set columns(val: any[]) {

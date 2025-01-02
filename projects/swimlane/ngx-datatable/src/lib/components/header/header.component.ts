@@ -69,7 +69,8 @@ import { translateXY } from '../../utils/translate';
   host: {
     class: 'datatable-header'
   },
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false,
 })
 export class DataTableHeaderComponent implements OnDestroy {
   @Input() sortAscendingIcon: any;

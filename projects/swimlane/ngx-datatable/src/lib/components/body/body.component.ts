@@ -119,7 +119,8 @@ import { translateXY } from '../../utils/translate';
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     class: 'datatable-body'
-  }
+  },
+  standalone: false,
 })
 export class DataTableBodyComponent implements OnInit, OnDestroy {
   @Input() scrollbarV: boolean;

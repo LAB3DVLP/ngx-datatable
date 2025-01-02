@@ -40,7 +40,8 @@ import {
   `,
   host: {
     class: 'datatable-row-wrapper'
-  }
+  },
+  standalone: false,
 })
 export class DataTableRowWrapperComponent implements DoCheck {
   @Input() innerWidth: number;

@@ -42,7 +42,8 @@ import { DatatableFooterDirective } from './footer.directive';
   host: {
     class: 'datatable-footer'
   },
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false
 })
 export class DataTableFooterComponent {
   @Input() footerHeight: number;

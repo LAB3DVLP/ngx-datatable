@@ -42,7 +42,8 @@ function noopSumFunc(cells: any[]): void {
   `,
   host: {
     class: 'datatable-summary-row'
-  }
+  },
+  standalone: false,
 })
 export class DataTableSummaryRowComponent implements OnChanges {
   @Input() rows: any[];

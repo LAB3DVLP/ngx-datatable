@@ -12,7 +12,7 @@ import {
 import { DraggableDirective } from './draggable.directive';
 import { DOCUMENT } from '@angular/common';
 
-@Directive({ selector: '[orderable]' })
+@Directive({ selector: '[orderable]', standalone: false })
 export class OrderableDirective implements AfterContentInit, OnDestroy {
   @Output() reorder: EventEmitter<any> = new EventEmitter();
   @Output() targetChanged: EventEmitter<any> = new EventEmitter();

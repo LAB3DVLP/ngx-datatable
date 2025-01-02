@@ -62,7 +62,8 @@ export type TreeStatus = 'collapsed' | 'expanded' | 'loading' | 'disabled';
       >
       </ng-template>
     </div>
-  `
+  `,
+  standalone: false,
 })
 export class DataTableBodyCellComponent implements DoCheck, OnDestroy {
   @Input() displayCheck: (row: any, column?: TableColumn, value?: any) => boolean;
