@@ -26,43 +26,55 @@ export type TreeStatus = 'collapsed' | 'expanded' | 'loading' | 'disabled';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="datatable-body-cell-label" [style.margin-left.px]="calcLeftMargin(column, row)">
-      <label
-        *ngIf="column.checkboxable && (!displayCheck || displayCheck(row, column, value))"
-        class="datatable-checkbox"
-      >
-        <input type="checkbox" [checked]="isSelected" (click)="onCheckboxChange($event)" />
-      </label>
-      <ng-container *ngIf="column.isTreeColumn">
-        <button
-          *ngIf="!column.treeToggleTemplate"
-          class="datatable-tree-button"
-          [disabled]="treeStatus === 'disabled'"
-          (click)="onTreeAction()"
-        >
-          <span>
-            <i *ngIf="treeStatus === 'loading'" class="icon datatable-icon-collapse"></i>
-            <i *ngIf="treeStatus === 'collapsed'" class="icon datatable-icon-up"></i>
-            <i *ngIf="treeStatus === 'expanded' || treeStatus === 'disabled'" class="icon datatable-icon-down"></i>
-          </span>
-        </button>
+      @if (column.checkboxable && (!displayCheck || displayCheck(row, column, value))) {
+        <label
+          class="datatable-checkbox"
+          >
+          <input type="checkbox" [checked]="isSelected" (click)="onCheckboxChange($event)" />
+        </label>
+      }
+      @if (column.isTreeColumn) {
+        @if (!column.treeToggleTemplate) {
+          <button
+            class="datatable-tree-button"
+            [disabled]="treeStatus === 'disabled'"
+            (click)="onTreeAction()"
+            >
+            <span>
+              @if (treeStatus === 'loading') {
+                <i class="icon datatable-icon-collapse"></i>
+              }
+              @if (treeStatus === 'collapsed') {
+                <i class="icon datatable-icon-up"></i>
+              }
+              @if (treeStatus === 'expanded' || treeStatus === 'disabled') {
+                <i class="icon datatable-icon-down"></i>
+              }
+            </span>
+          </button>
+        }
+        @if (column.treeToggleTemplate) {
+          <ng-template
+            [ngTemplateOutlet]="column.treeToggleTemplate"
+            [ngTemplateOutletContext]="{ cellContext: cellContext }"
+            >
+          </ng-template>
+        }
+      }
+    
+      @if (!column.cellTemplate) {
+        <span [title]="sanitizedValue" [innerHTML]="value"> </span>
+      }
+      @if (column.cellTemplate) {
         <ng-template
-          *ngIf="column.treeToggleTemplate"
-          [ngTemplateOutlet]="column.treeToggleTemplate"
-          [ngTemplateOutletContext]="{ cellContext: cellContext }"
-        >
+          #cellTemplate
+          [ngTemplateOutlet]="column.cellTemplate"
+          [ngTemplateOutletContext]="cellContext"
+          >
         </ng-template>
-      </ng-container>
-
-      <span *ngIf="!column.cellTemplate" [title]="sanitizedValue" [innerHTML]="value"> </span>
-      <ng-template
-        #cellTemplate
-        *ngIf="column.cellTemplate"
-        [ngTemplateOutlet]="column.cellTemplate"
-        [ngTemplateOutletContext]="cellContext"
-      >
-      </ng-template>
+      }
     </div>
-  `,
+    `,
   standalone: false,
 })
 export class DataTableBodyCellComponent implements DoCheck, OnDestroy {

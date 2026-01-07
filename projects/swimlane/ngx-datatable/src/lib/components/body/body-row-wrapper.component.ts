@@ -15,29 +15,36 @@ import {
   selector: 'datatable-row-wrapper',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div *ngIf="groupHeader && groupHeader.template" class="datatable-group-header" [ngStyle]="getGroupHeaderStyle()">
-      <ng-template
-        *ngIf="groupHeader && groupHeader.template"
-        [ngTemplateOutlet]="groupHeader.template"
-        [ngTemplateOutletContext]="groupContext"
-      >
-      </ng-template>
-    </div>
-    <ng-content *ngIf="(groupHeader && groupHeader.template && expanded) || !groupHeader || !groupHeader.template">
-    </ng-content>
-    <div
-      *ngIf="rowDetail && rowDetail.template && expanded"
-      [style.height.px]="detailRowHeight"
-      class="datatable-row-detail"
-    >
-      <ng-template
-        *ngIf="rowDetail && rowDetail.template"
-        [ngTemplateOutlet]="rowDetail.template"
-        [ngTemplateOutletContext]="rowContext"
-      >
-      </ng-template>
-    </div>
-  `,
+    @if (groupHeader && groupHeader.template) {
+      <div class="datatable-group-header" [ngStyle]="getGroupHeaderStyle()">
+        @if (groupHeader && groupHeader.template) {
+          <ng-template
+            [ngTemplateOutlet]="groupHeader.template"
+            [ngTemplateOutletContext]="groupContext"
+            >
+          </ng-template>
+        }
+      </div>
+    }
+    @if ((groupHeader && groupHeader.template && expanded) || !groupHeader || !groupHeader.template) {
+      <ng-content>
+      </ng-content>
+    }
+    @if (rowDetail && rowDetail.template && expanded) {
+      <div
+        [style.height.px]="detailRowHeight"
+        class="datatable-row-detail"
+        >
+        @if (rowDetail && rowDetail.template) {
+          <ng-template
+            [ngTemplateOutlet]="rowDetail.template"
+            [ngTemplateOutletContext]="rowContext"
+            >
+          </ng-template>
+        }
+      </div>
+    }
+    `,
   host: {
     class: 'datatable-row-wrapper'
   },

@@ -10,7 +10,7 @@ import { ColumnMode } from 'projects/swimlane/ngx-datatable/src/public-api';
         <small>
           <a
             href="https://github.com/swimlane/ngx-datatable/blob/master/src/app/summary/summary-row-custom-template.component.ts"
-          >
+            >
             Source
           </a>
         </small>
@@ -24,17 +24,19 @@ import { ColumnMode } from 'projects/swimlane/ngx-datatable/src/public-api';
         [rowHeight]="'auto'"
         [summaryHeight]="55"
         [rows]="rows"
-      >
+        >
       </ngx-datatable>
       <ng-template #nameSummaryCell let-row="row" let-value="value">
         <div class="name-container">
-          <div class="chip" *ngFor="let name of getNames()">
-            <span class="chip-content">{{ name }}</span>
-          </div>
+          @for (name of getNames(); track name) {
+            <div class="chip">
+              <span class="chip-content">{{ name }}</span>
+            </div>
+          }
         </div>
       </ng-template>
     </div>
-  `,
+    `,
   styleUrls: ['./summary-row-custom-template.component.scss']
 })
 export class SummaryRowCustomTemplateComponent implements OnInit {

@@ -11,7 +11,7 @@ import { ColumnMode, SelectionType } from 'projects/swimlane/ngx-datatable/src/p
           <a
             href="https://github.com/swimlane/ngx-datatable/blob/master/src/app/selection/selection-chkbox.component.ts"
             target="_blank"
-          >
+            >
             Source
           </a>
         </small>
@@ -37,7 +37,7 @@ import { ColumnMode, SelectionType } from 'projects/swimlane/ngx-datatable/src/p
           [displayCheck]="displayCheck"
           (activate)="onActivate($event)"
           (select)="onSelect($event)"
-        >
+          >
           <ngx-datatable-column
             [width]="30"
             [sortable]="false"
@@ -46,27 +46,31 @@ import { ColumnMode, SelectionType } from 'projects/swimlane/ngx-datatable/src/p
             [resizeable]="false"
             [headerCheckboxable]="true"
             [checkboxable]="true"
-          >
+            >
           </ngx-datatable-column>
           <ngx-datatable-column name="Name"></ngx-datatable-column>
           <ngx-datatable-column name="Gender"></ngx-datatable-column>
           <ngx-datatable-column name="Company"></ngx-datatable-column>
         </ngx-datatable>
       </div>
-
+    
       <div class="selected-column">
         <h4>
           Selections <small>({{ selected?.length }})</small>
         </h4>
         <ul>
-          <li *ngFor="let sel of selected">
-            {{ sel.name }}
-          </li>
-          <li *ngIf="!selected?.length">No Selections</li>
+          @for (sel of selected; track sel) {
+            <li>
+              {{ sel.name }}
+            </li>
+          }
+          @if (!selected?.length) {
+            <li>No Selections</li>
+          }
         </ul>
       </div>
     </div>
-  `
+    `
 })
 export class CheckboxSelectionComponent {
   rows = [];

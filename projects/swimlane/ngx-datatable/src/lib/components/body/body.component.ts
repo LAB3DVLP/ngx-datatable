@@ -19,7 +19,9 @@ import { translateXY } from '../../utils/translate';
 @Component({
   selector: 'datatable-body',
   template: `
-    <datatable-progress *ngIf="loadingIndicator"> </datatable-progress>
+    @if (loadingIndicator) {
+      <datatable-progress> </datatable-progress>
+    }
     <datatable-selection
       #selector
       [selected]="selected"
@@ -30,92 +32,99 @@ import { translateXY } from '../../utils/translate';
       [rowIdentity]="rowIdentity"
       (select)="select.emit($event)"
       (activate)="activate.emit($event)"
-    >
-      <datatable-scroller
-        *ngIf="rows?.length"
-        [scrollbarV]="scrollbarV"
-        [scrollbarH]="scrollbarH"
-        [scrollHeight]="scrollHeight"
-        [scrollWidth]="columnGroupWidths?.total"
-        (scroll)="onBodyScroll($event)"
       >
-        <datatable-summary-row
-          *ngIf="summaryRow && summaryPosition === 'top'"
-          [rowHeight]="summaryHeight"
-          [offsetX]="offsetX"
-          [innerWidth]="innerWidth"
-          [rows]="rows"
-          [columns]="columns"
-        >
-        </datatable-summary-row>
-        <datatable-row-wrapper
-          [groupedRows]="groupedRows"
-          *ngFor="let group of temp; let i = index; trackBy: rowTrackingFn"
-          [innerWidth]="innerWidth"
-          [ngStyle]="getRowsStyles(group)"
-          [rowDetail]="rowDetail"
-          [groupHeader]="groupHeader"
-          [offsetX]="offsetX"
-          [detailRowHeight]="getDetailRowHeight(group && group[i], i)"
-          [row]="group"
-          [expanded]="getRowExpanded(group)"
-          [rowIndex]="getRowIndex(group && group[i])"
-          (rowContextmenu)="rowContextmenu.emit($event)"
-        >
-          <datatable-body-row
-            role="row"
-            *ngIf="!groupedRows; else groupedRowsTemplate"
-            tabindex="-1"
-            [isSelected]="selector.getRowSelected(group)"
-            [innerWidth]="innerWidth"
-            [offsetX]="offsetX"
-            [columns]="columns"
-            [rowHeight]="getRowHeight(group)"
-            [row]="group"
-            [rowIndex]="getRowIndex(group)"
-            [expanded]="getRowExpanded(group)"
-            [rowClass]="rowClass"
-            [displayCheck]="displayCheck"
-            [treeStatus]="group && group.treeStatus"
-            (treeAction)="onTreeAction(group)"
-            (activate)="selector.onActivate($event, indexes.first + i)"
+      @if (rows?.length) {
+        <datatable-scroller
+          [scrollbarV]="scrollbarV"
+          [scrollbarH]="scrollbarH"
+          [scrollHeight]="scrollHeight"
+          [scrollWidth]="columnGroupWidths?.total"
+          (scroll)="onBodyScroll($event)"
           >
-          </datatable-body-row>
-          <ng-template #groupedRowsTemplate>
-            <datatable-body-row
-              role="row"
-              *ngFor="let row of group.value; let i = index; trackBy: rowTrackingFn"
-              tabindex="-1"
-              [isSelected]="selector.getRowSelected(row)"
-              [innerWidth]="innerWidth"
+          @if (summaryRow && summaryPosition === 'top') {
+            <datatable-summary-row
+              [rowHeight]="summaryHeight"
               [offsetX]="offsetX"
+              [innerWidth]="innerWidth"
+              [rows]="rows"
               [columns]="columns"
-              [rowHeight]="getRowHeight(row)"
-              [row]="row"
-              [group]="group.value"
-              [rowIndex]="getRowIndex(row)"
-              [expanded]="getRowExpanded(row)"
-              [rowClass]="rowClass"
-              (activate)="selector.onActivate($event, i)"
-            >
-            </datatable-body-row>
-          </ng-template>
-        </datatable-row-wrapper>
-        <datatable-summary-row
-          role="row"
-          *ngIf="summaryRow && summaryPosition === 'bottom'"
-          [ngStyle]="getBottomSummaryRowStyles()"
-          [rowHeight]="summaryHeight"
-          [offsetX]="offsetX"
-          [innerWidth]="innerWidth"
-          [rows]="rows"
-          [columns]="columns"
-        >
-        </datatable-summary-row>
-      </datatable-scroller>
-      <div class="empty-row" *ngIf="!rows?.length && !loadingIndicator" [innerHTML]="emptyMessage"></div>
+              >
+            </datatable-summary-row>
+          }
+          @for (group of temp; track rowTrackingFn(i, group); let i = $index) {
+            <datatable-row-wrapper
+              [groupedRows]="groupedRows"
+              [innerWidth]="innerWidth"
+              [ngStyle]="getRowsStyles(group)"
+              [rowDetail]="rowDetail"
+              [groupHeader]="groupHeader"
+              [offsetX]="offsetX"
+              [detailRowHeight]="getDetailRowHeight(group && group[i], i)"
+              [row]="group"
+              [expanded]="getRowExpanded(group)"
+              [rowIndex]="getRowIndex(group && group[i])"
+              (rowContextmenu)="rowContextmenu.emit($event)"
+              >
+              @if (!groupedRows) {
+                <datatable-body-row
+                  role="row"
+                  tabindex="-1"
+                  [isSelected]="selector.getRowSelected(group)"
+                  [innerWidth]="innerWidth"
+                  [offsetX]="offsetX"
+                  [columns]="columns"
+                  [rowHeight]="getRowHeight(group)"
+                  [row]="group"
+                  [rowIndex]="getRowIndex(group)"
+                  [expanded]="getRowExpanded(group)"
+                  [rowClass]="rowClass"
+                  [displayCheck]="displayCheck"
+                  [treeStatus]="group && group.treeStatus"
+                  (treeAction)="onTreeAction(group)"
+                  (activate)="selector.onActivate($event, indexes.first + i)"
+                  >
+                </datatable-body-row>
+              } @else {
+                @for (row of group.value; track rowTrackingFn(i, row); let i = $index) {
+                  <datatable-body-row
+                    role="row"
+                    tabindex="-1"
+                    [isSelected]="selector.getRowSelected(row)"
+                    [innerWidth]="innerWidth"
+                    [offsetX]="offsetX"
+                    [columns]="columns"
+                    [rowHeight]="getRowHeight(row)"
+                    [row]="row"
+                    [group]="group.value"
+                    [rowIndex]="getRowIndex(row)"
+                    [expanded]="getRowExpanded(row)"
+                    [rowClass]="rowClass"
+                    (activate)="selector.onActivate($event, i)"
+                    >
+                  </datatable-body-row>
+                }
+              }
+            </datatable-row-wrapper>
+          }
+          @if (summaryRow && summaryPosition === 'bottom') {
+            <datatable-summary-row
+              role="row"
+              [ngStyle]="getBottomSummaryRowStyles()"
+              [rowHeight]="summaryHeight"
+              [offsetX]="offsetX"
+              [innerWidth]="innerWidth"
+              [rows]="rows"
+              [columns]="columns"
+              >
+            </datatable-summary-row>
+          }
+        </datatable-scroller>
+      }
+      @if (!rows?.length && !loadingIndicator) {
+        <div class="empty-row" [innerHTML]="emptyMessage"></div>
+      }
     </datatable-selection>
-  `,
+    `,
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     class: 'datatable-body'
