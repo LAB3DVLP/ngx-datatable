@@ -7,16 +7,21 @@
     "declaration": false,
     "experimentalDecorators": true,
     "module": "es2020",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "importHelpers": true,
     "target": "ES2022",
-    "typeRoots": ["node_modules/@types"],
-    "lib": ["es2018", "dom"],
+    "typeRoots": [
+      "node_modules/@types"
+    ],
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "paths": {
-      "@swimlane/ngx-datatable": ["dist/swimlane/ngx-datatable"],
-      "@swimlane/ngx-datatable/*": ["dist/swimlane/ngx-datatable/*"]
+      "@swimlane/ngx-datatable": [
+        "dist/swimlane/ngx-datatable"
+      ],
+      "@swimlane/ngx-datatable/*": [
+        "dist/swimlane/ngx-datatable/*"
+      ]
     }
   },
   "angularCompilerOptions": {

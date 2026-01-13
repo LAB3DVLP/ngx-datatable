@@ -11,7 +11,7 @@ import { ColumnMode } from 'projects/swimlane/ngx-datatable/src/public-api';
           <a
             href="https://github.com/swimlane/ngx-datatable/blob/master/src/app/basic/contextmenu.component.ts"
             target="_blank"
-          >
+            >
             Source
           </a>
         </small>
@@ -21,13 +21,19 @@ import { ColumnMode } from 'projects/swimlane/ngx-datatable/src/public-api';
           <strong>Note:</strong> ngx-datatable does not provide a context menu feature. This demonstrates how you would
           access the <code>contextmenu</code> event to display your own custom context menu.
         </p>
-        <p *ngIf="rawEvent">
-          <strong>Mouse position:</strong> <code>(x: {{ rawEvent?.x }}, y: {{ rawEvent?.y }})</code>
-        </p>
-        <p *ngIf="contextmenuRow"><strong>Row:</strong> {{ contextmenuRow?.name }}</p>
-        <p *ngIf="contextmenuColumn">
-          <strong>Header:</strong> name: {{ contextmenuColumn?.name }} prop: {{ contextmenuColumn?.prop }}
-        </p>
+        @if (rawEvent) {
+          <p>
+            <strong>Mouse position:</strong> <code>(x: {{ rawEvent?.x }}, y: {{ rawEvent?.y }})</code>
+          </p>
+        }
+        @if (contextmenuRow) {
+          <p><strong>Row:</strong> {{ contextmenuRow?.name }}</p>
+        }
+        @if (contextmenuColumn) {
+          <p>
+            <strong>Header:</strong> name: {{ contextmenuColumn?.name }} prop: {{ contextmenuColumn?.prop }}
+          </p>
+        }
       </div>
       <ngx-datatable
         class="material"
@@ -38,10 +44,10 @@ import { ColumnMode } from 'projects/swimlane/ngx-datatable/src/public-api';
         [footerHeight]="50"
         rowHeight="auto"
         (tableContextmenu)="onTableContextMenu($event)"
-      >
+        >
       </ngx-datatable>
     </div>
-  `
+    `
 })
 export class ContextMenuDemoComponent {
   rows = [];

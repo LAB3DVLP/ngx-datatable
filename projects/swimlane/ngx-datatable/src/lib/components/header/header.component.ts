@@ -24,48 +24,50 @@ import { translateXY } from '../../utils/translate';
       (targetChanged)="onTargetChanged($event)"
       [style.width.px]="_columnGroupWidths.total"
       class="datatable-header-inner"
-    >
-      <div
-        *ngFor="let colGroup of _columnsByPin; trackBy: trackByGroups"
-        [class]="'datatable-row-' + colGroup.type"
-        [ngStyle]="_styleByGroup[colGroup.type]"
       >
-        <datatable-header-cell
-          role="columnheader"
-          *ngFor="let column of colGroup.columns; trackBy: columnTrackingFn"
-          resizeable
-          [resizeEnabled]="column.resizeable"
-          (resize)="onColumnResized($event, column)"
-          long-press
-          [pressModel]="column"
-          [pressEnabled]="reorderable && column.draggable"
-          (longPressStart)="onLongPressStart($event)"
-          (longPressEnd)="onLongPressEnd($event)"
-          draggable
-          [dragX]="reorderable && column.draggable && column.dragging"
-          [dragY]="false"
-          [dragModel]="column"
-          [dragEventTarget]="dragEventTarget"
-          [headerHeight]="headerHeight"
-          [isTarget]="column.isTarget"
-          [targetMarkerTemplate]="targetMarkerTemplate"
-          [targetMarkerContext]="column.targetMarkerContext"
-          [column]="column"
-          [sortType]="sortType"
-          [sorts]="sorts"
-          [selectionType]="selectionType"
-          [sortAscendingIcon]="sortAscendingIcon"
-          [sortDescendingIcon]="sortDescendingIcon"
-          [sortUnsetIcon]="sortUnsetIcon"
-          [allRowsSelected]="allRowsSelected"
-          (sort)="onSort($event)"
-          (select)="select.emit($event)"
-          (columnContextmenu)="columnContextmenu.emit($event)"
-        >
-        </datatable-header-cell>
-      </div>
+      @for (colGroup of _columnsByPin; track trackByGroups($index, colGroup)) {
+        <div
+          [class]="'datatable-row-' + colGroup.type"
+          [ngStyle]="_styleByGroup[colGroup.type]"
+          >
+          @for (column of colGroup.columns; track columnTrackingFn($index, column)) {
+            <datatable-header-cell
+              role="columnheader"
+              resizeable
+              [resizeEnabled]="column.resizeable"
+              (resize)="onColumnResized($event, column)"
+              long-press
+              [pressModel]="column"
+              [pressEnabled]="reorderable && column.draggable"
+              (longPressStart)="onLongPressStart($event)"
+              (longPressEnd)="onLongPressEnd($event)"
+              draggable
+              [dragX]="reorderable && column.draggable && column.dragging"
+              [dragY]="false"
+              [dragModel]="column"
+              [dragEventTarget]="dragEventTarget"
+              [headerHeight]="headerHeight"
+              [isTarget]="column.isTarget"
+              [targetMarkerTemplate]="targetMarkerTemplate"
+              [targetMarkerContext]="column.targetMarkerContext"
+              [column]="column"
+              [sortType]="sortType"
+              [sorts]="sorts"
+              [selectionType]="selectionType"
+              [sortAscendingIcon]="sortAscendingIcon"
+              [sortDescendingIcon]="sortDescendingIcon"
+              [sortUnsetIcon]="sortUnsetIcon"
+              [allRowsSelected]="allRowsSelected"
+              (sort)="onSort($event)"
+              (select)="select.emit($event)"
+              (columnContextmenu)="columnContextmenu.emit($event)"
+              >
+            </datatable-header-cell>
+          }
+        </div>
+      }
     </div>
-  `,
+    `,
   host: {
     class: 'datatable-header'
   },
