@@ -24,30 +24,32 @@ import { translateXY } from '../../utils/translate';
   selector: 'datatable-body-row',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div
-      *ngFor="let colGroup of _columnsByPin; let i = index; trackBy: trackByGroups"
-      class="datatable-row-{{ colGroup.type }} datatable-row-group"
-      [ngStyle]="_groupStyles[colGroup.type]"
-    >
-      <datatable-body-cell
-        role="cell"
-        *ngFor="let column of colGroup.columns; let ii = index; trackBy: columnTrackingFn"
-        tabindex="-1"
-        [row]="row"
-        [group]="group"
-        [expanded]="expanded"
-        [isSelected]="isSelected"
-        [rowIndex]="rowIndex"
-        [column]="column"
-        [rowHeight]="rowHeight"
-        [displayCheck]="displayCheck"
-        [treeStatus]="treeStatus"
-        (activate)="onActivate($event, ii)"
-        (treeAction)="onTreeAction()"
-      >
-      </datatable-body-cell>
-    </div>
-  `,
+    @for (colGroup of _columnsByPin; track trackByGroups(i, colGroup); let i = $index) {
+      <div
+        class="datatable-row-{{ colGroup.type }} datatable-row-group"
+        [ngStyle]="_groupStyles[colGroup.type]"
+        >
+        @for (column of colGroup.columns; track columnTrackingFn(ii, column); let ii = $index) {
+          <datatable-body-cell
+            role="cell"
+            tabindex="-1"
+            [row]="row"
+            [group]="group"
+            [expanded]="expanded"
+            [isSelected]="isSelected"
+            [rowIndex]="rowIndex"
+            [column]="column"
+            [rowHeight]="rowHeight"
+            [displayCheck]="displayCheck"
+            [treeStatus]="treeStatus"
+            (activate)="onActivate($event, ii)"
+            (treeAction)="onTreeAction()"
+            >
+          </datatable-body-cell>
+        }
+      </div>
+    }
+    `,
   standalone: false,
 })
 export class DataTableBodyRowComponent implements DoCheck {

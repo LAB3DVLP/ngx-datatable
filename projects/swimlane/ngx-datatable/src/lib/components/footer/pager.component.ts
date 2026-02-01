@@ -14,17 +14,18 @@ import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from 
           <i class="{{ pagerLeftArrowIcon }}"></i>
         </a>
       </li>
-      <li
-        role="button"
-        [attr.aria-label]="'page ' + pg.number"
-        class="pages"
-        *ngFor="let pg of pages"
-        [class.active]="pg.number === page"
-      >
-        <a href="javascript:void(0)" (click)="selectPage(pg.number)">
-          {{ pg.text }}
-        </a>
-      </li>
+      @for (pg of pages; track pg) {
+        <li
+          role="button"
+          [attr.aria-label]="'page ' + pg.number"
+          class="pages"
+          [class.active]="pg.number === page"
+          >
+          <a href="javascript:void(0)" (click)="selectPage(pg.number)">
+            {{ pg.text }}
+          </a>
+        </li>
+      }
       <li [class.disabled]="!canNext()">
         <a role="button" aria-label="go to next page" href="javascript:void(0)" (click)="nextPage()">
           <i class="{{ pagerRightArrowIcon }}"></i>
@@ -36,7 +37,7 @@ import { Component, Input, Output, EventEmitter, ChangeDetectionStrategy } from 
         </a>
       </li>
     </ul>
-  `,
+    `,
   host: {
     class: 'datatable-pager'
   },

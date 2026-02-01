@@ -11,7 +11,7 @@ import { ColumnMode, SelectionType } from 'projects/swimlane/ngx-datatable/src/p
           <a
             href="https://github.com/swimlane/ngx-datatable/blob/master/src/app/selection/selection-chkbox-template.component.ts"
             target="_blank"
-          >
+            >
             Source
           </a>
         </small>
@@ -35,20 +35,20 @@ import { ColumnMode, SelectionType } from 'projects/swimlane/ngx-datatable/src/p
           [selectionType]="SelectionType.checkbox"
           (activate)="onActivate($event)"
           (select)="onSelect($event)"
-        >
+          >
           <ngx-datatable-column
             [width]="30"
             [sortable]="false"
             [canAutoResize]="false"
             [draggable]="false"
             [resizeable]="false"
-          >
+            >
             <ng-template
               ngx-datatable-header-template
               let-value="value"
               let-allRowsSelected="allRowsSelected"
               let-selectFn="selectFn"
-            >
+              >
               <input type="checkbox" [checked]="allRowsSelected" (change)="selectFn(!allRowsSelected)" />
             </ng-template>
             <ng-template
@@ -56,7 +56,7 @@ import { ColumnMode, SelectionType } from 'projects/swimlane/ngx-datatable/src/p
               let-value="value"
               let-isSelected="isSelected"
               let-onCheckboxChangeFn="onCheckboxChangeFn"
-            >
+              >
               <input type="checkbox" [checked]="isSelected" (change)="onCheckboxChangeFn($event)" />
             </ng-template>
           </ngx-datatable-column>
@@ -65,20 +65,24 @@ import { ColumnMode, SelectionType } from 'projects/swimlane/ngx-datatable/src/p
           <ngx-datatable-column name="Company"></ngx-datatable-column>
         </ngx-datatable>
       </div>
-
+    
       <div class="selected-column">
         <h4>
           Selections <small>({{ selected?.length }})</small>
         </h4>
         <ul>
-          <li *ngFor="let sel of selected">
-            {{ sel.name }}
-          </li>
-          <li *ngIf="!selected?.length">No Selections</li>
+          @for (sel of selected; track sel) {
+            <li>
+              {{ sel.name }}
+            </li>
+          }
+          @if (!selected?.length) {
+            <li>No Selections</li>
+          }
         </ul>
       </div>
     </div>
-  `
+    `
 })
 export class CustomCheckboxSelectionComponent {
   rows = [];

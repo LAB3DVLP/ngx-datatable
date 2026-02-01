@@ -11,7 +11,7 @@ import { ColumnMode, SelectionType } from 'projects/swimlane/ngx-datatable/src/p
           <a
             href="https://github.com/swimlane/ngx-datatable/blob/master/src/app/selection/selection-multi-click.component.ts"
             target="_blank"
-          >
+            >
             Source
           </a>
         </small>
@@ -20,7 +20,7 @@ import { ColumnMode, SelectionType } from 'projects/swimlane/ngx-datatable/src/p
         <div class="info">
           <p>This demonstrates multi selection table, where any click event causes a selection.</p>
         </div>
-
+    
         <ngx-datatable
           class="material"
           [rows]="rows"
@@ -34,21 +34,25 @@ import { ColumnMode, SelectionType } from 'projects/swimlane/ngx-datatable/src/p
           [selectionType]="SelectionType.multiClick"
           (activate)="onActivate($event)"
           (select)="onSelect($event)"
-        >
+          >
         </ngx-datatable>
       </div>
-
+    
       <div class="selected-column">
         <h4>Selections</h4>
         <ul>
-          <li *ngFor="let sel of selected">
-            {{ sel.name }}
-          </li>
-          <li *ngIf="!selected.length">No Selections</li>
+          @for (sel of selected; track sel) {
+            <li>
+              {{ sel.name }}
+            </li>
+          }
+          @if (!selected.length) {
+            <li>No Selections</li>
+          }
         </ul>
       </div>
     </div>
-  `
+    `
 })
 export class MultiClickSelectionComponent {
   rows = [];
