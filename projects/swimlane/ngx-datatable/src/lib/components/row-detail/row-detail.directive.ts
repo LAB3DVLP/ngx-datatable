@@ -1,7 +1,7 @@
 import { Input, Output, EventEmitter, Directive, TemplateRef, ContentChild } from '@angular/core';
 import { DatatableRowDetailTemplateDirective } from './row-detail-template.directive';
 
-@Directive({ selector: 'ngx-datatable-row-detail', standalone: false, })
+@Directive({ selector: 'ngx-datatable-row-detail', })
 export class DatatableRowDetailDirective {
   /**
    * The detail row height is required especially

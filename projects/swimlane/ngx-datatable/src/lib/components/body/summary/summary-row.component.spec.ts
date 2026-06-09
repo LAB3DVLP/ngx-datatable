@@ -28,9 +28,9 @@ describe('DataTableSummaryRowComponent', () => {
   beforeEach(
     waitForAsync(() => {
       TestBed.configureTestingModule({
-        declarations: [DataTableSummaryRowComponent, DataTableBodyRowComponent, DataTableBodyCellComponent],
-        providers: [ScrollbarHelper]
-      }).compileComponents();
+    imports: [DataTableSummaryRowComponent, DataTableBodyRowComponent, DataTableBodyCellComponent],
+    providers: [ScrollbarHelper]
+}).compileComponents();
     })
   );
 

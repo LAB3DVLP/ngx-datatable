@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ColumnMode } from 'projects/swimlane/ngx-datatable/src/public-api';
 
 @Component({
+  standalone: false,
   selector: 'rx-demo',
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `
     <div>
       <h3>

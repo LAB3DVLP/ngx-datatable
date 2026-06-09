@@ -1,9 +1,11 @@
-import { Component, ViewEncapsulation, ViewChild } from '@angular/core';
+import { Component, ViewEncapsulation, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { NgStyle } from '@angular/common';
 import { ColumnMode } from 'projects/swimlane/ngx-datatable/src/public-api';
 
 @Component({
+  standalone: false,
   selector: 'row-grouping-demo',
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `
     <div>
       <h3>

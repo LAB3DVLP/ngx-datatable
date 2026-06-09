@@ -15,10 +15,16 @@ import { SelectionType } from '../../types/selection.type';
 import { columnsByPin, columnGroupWidths } from '../../utils/column';
 import { RowHeightCache } from '../../utils/row-height-cache';
 import { translateXY } from '../../utils/translate';
+import { ProgressBarComponent } from './progress-bar.component';
+import { DataTableSelectionComponent } from './selection.component';
+import { DataTableSummaryRowComponent } from './summary/summary-row.component';
+import { DataTableRowWrapperComponent } from './body-row-wrapper.component';
+import { NgStyle } from '@angular/common';
+import { DataTableBodyRowComponent } from './body-row.component';
 
 @Component({
-  selector: 'datatable-body',
-  template: `
+    selector: 'datatable-body',
+    template: `
     @if (loadingIndicator) {
       <datatable-progress> </datatable-progress>
     }
@@ -38,7 +44,7 @@ import { translateXY } from '../../utils/translate';
           [scrollbarV]="scrollbarV"
           [scrollbarH]="scrollbarH"
           [scrollHeight]="scrollHeight"
-          [scrollWidth]="columnGroupWidths?.total"
+          [scrollWidth]="$safeNavigationMigration(columnGroupWidths?.total)"
           (scroll)="onBodyScroll($event)"
           >
           @if (summaryRow && summaryPosition === 'top') {
@@ -125,11 +131,19 @@ import { translateXY } from '../../utils/translate';
       }
     </datatable-selection>
     `,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  host: {
-    class: 'datatable-body'
-  },
-  standalone: false,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    host: {
+        class: 'datatable-body'
+    },
+    imports: [
+        ProgressBarComponent,
+        DataTableSelectionComponent,
+        ScrollerComponent,
+        DataTableSummaryRowComponent,
+        DataTableRowWrapperComponent,
+        NgStyle,
+        DataTableBodyRowComponent,
+    ],
 })
 export class DataTableBodyComponent implements OnInit, OnDestroy {
   @Input() scrollbarV: boolean;

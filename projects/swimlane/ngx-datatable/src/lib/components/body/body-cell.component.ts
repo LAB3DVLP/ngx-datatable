@@ -18,22 +18,24 @@ import {
 import { TableColumn } from '../../types/table-column.type';
 import { SortDirection } from '../../types/sort-direction.type';
 import { Keys } from '../../utils/keys';
+import { NgTemplateOutlet } from '@angular/common';
+import { ScrollerComponent } from './scroller.component';
 
 export type TreeStatus = 'collapsed' | 'expanded' | 'loading' | 'disabled';
 
 @Component({
-  selector: 'datatable-body-cell',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
+    selector: 'datatable-body-cell',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    template: `
     <div class="datatable-body-cell-label" [style.margin-left.px]="calcLeftMargin(column, row)">
-      @if (column.checkboxable && (!displayCheck || displayCheck(row, column, value))) {
+      @if (column && column.checkboxable && (!displayCheck || displayCheck(row, column, value))) {
         <label
           class="datatable-checkbox"
           >
           <input type="checkbox" [checked]="isSelected" (click)="onCheckboxChange($event)" />
         </label>
       }
-      @if (column.isTreeColumn) {
+      @if (column && column.isTreeColumn) {
         @if (!column.treeToggleTemplate) {
           <button
             class="datatable-tree-button"
@@ -53,7 +55,7 @@ export type TreeStatus = 'collapsed' | 'expanded' | 'loading' | 'disabled';
             </span>
           </button>
         }
-        @if (column.treeToggleTemplate) {
+        @if (column && column.treeToggleTemplate) {
           <ng-template
             [ngTemplateOutlet]="column.treeToggleTemplate"
             [ngTemplateOutletContext]="{ cellContext: cellContext }"
@@ -62,10 +64,10 @@ export type TreeStatus = 'collapsed' | 'expanded' | 'loading' | 'disabled';
         }
       }
     
-      @if (!column.cellTemplate) {
+      @if (column && !column.cellTemplate) {
         <span [title]="sanitizedValue" [innerHTML]="value"> </span>
       }
-      @if (column.cellTemplate) {
+      @if (column && column.cellTemplate) {
         <ng-template
           #cellTemplate
           [ngTemplateOutlet]="column.cellTemplate"
@@ -75,7 +77,7 @@ export type TreeStatus = 'collapsed' | 'expanded' | 'loading' | 'disabled';
       }
     </div>
     `,
-  standalone: false,
+    imports: [NgTemplateOutlet, ScrollerComponent],
 })
 export class DataTableBodyCellComponent implements DoCheck, OnDestroy {
   @Input() displayCheck: (row: any, column?: TableColumn, value?: any) => boolean;
@@ -189,7 +191,7 @@ export class DataTableBodyCellComponent implements DoCheck, OnDestroy {
   @HostBinding('class')
   get columnCssClasses(): any {
     let cls = 'datatable-body-cell';
-    if (this.column.cellClass) {
+    if (this.column && this.column.cellClass) {
       if (typeof this.column.cellClass === 'string') {
         cls += ' ' + this.column.cellClass;
       } else if (typeof this.column.cellClass === 'function') {
@@ -231,17 +233,17 @@ export class DataTableBodyCellComponent implements DoCheck, OnDestroy {
 
   @HostBinding('style.width.px')
   get width(): number {
-    return this.column.width;
+    return this.column ? this.column.width : undefined;
   }
 
   @HostBinding('style.minWidth.px')
   get minWidth(): number {
-    return this.column.minWidth;
+    return this.column ? this.column.minWidth : undefined;
   }
 
   @HostBinding('style.maxWidth.px')
   get maxWidth(): number {
-    return this.column.maxWidth;
+    return this.column ? this.column.maxWidth : undefined;
   }
 
   @HostBinding('style.height')
@@ -432,6 +434,7 @@ export class DataTableBodyCellComponent implements DoCheck, OnDestroy {
   }
 
   calcLeftMargin(column: any, row: any) {
+    if (!column) return 0;
     const levelIndent = column.treeLevelIndent != null ? column.treeLevelIndent : 50;
     return column.isTreeColumn ? row.level * levelIndent : 0;
   }

@@ -1,12 +1,14 @@
 import { TestBed, ComponentFixture, waitForAsync } from '@angular/core/testing';
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { DatatableRowDetailDirective } from './row-detail.directive';
 import { DatatableRowDetailTemplateDirective } from './row-detail-template.directive';
 
 @Component({
-  selector: 'test-fixture-component',
-  template: `
+  standalone: false,
+    selector: 'test-fixture-component',
+    changeDetection: ChangeDetectionStrategy.Eager,
+    template: `
     <ngx-datatable-row-detail id="t1"></ngx-datatable-row-detail>
     <ngx-datatable-row-detail id="t2">
       <ng-template ngx-datatable-row-detail-template></ng-template>
@@ -23,8 +25,8 @@ describe('DatatableRowDetailDirective', () => {
   // provide our implementations or mocks to the dependency injector
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [DatatableRowDetailDirective, DatatableRowDetailTemplateDirective, TestFixtureComponent]
-    });
+    imports: [DatatableRowDetailDirective, DatatableRowDetailTemplateDirective, TestFixtureComponent]
+});
   });
 
   beforeEach(

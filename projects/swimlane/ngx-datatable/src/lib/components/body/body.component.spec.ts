@@ -17,18 +17,16 @@ describe('DataTableBodyComponent', () => {
   // provide our implementations or mocks to the dependency injector
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        DataTableBodyComponent,
+    imports: [DataTableBodyComponent,
         DataTableBodyRowComponent,
         DataTableRowWrapperComponent,
         DataTableBodyCellComponent,
         DataTableSelectionComponent,
         DataTableSummaryRowComponent,
         ProgressBarComponent,
-        ScrollerComponent
-      ],
-      providers: [ScrollbarHelper]
-    });
+        ScrollerComponent],
+    providers: [ScrollbarHelper]
+});
   });
 
   beforeEach(

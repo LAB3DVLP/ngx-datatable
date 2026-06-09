@@ -10,11 +10,13 @@ import {
   ChangeDetectorRef,
   KeyValueDiffers
 } from '@angular/core';
+import { NgStyle, NgTemplateOutlet } from '@angular/common';
+import { ScrollerComponent } from './scroller.component';
 
 @Component({
-  selector: 'datatable-row-wrapper',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
+    selector: 'datatable-row-wrapper',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    template: `
     @if (groupHeader && groupHeader.template) {
       <div class="datatable-group-header" [ngStyle]="getGroupHeaderStyle()">
         @if (groupHeader && groupHeader.template) {
@@ -45,10 +47,14 @@ import {
       </div>
     }
     `,
-  host: {
-    class: 'datatable-row-wrapper'
-  },
-  standalone: false,
+    host: {
+        class: 'datatable-row-wrapper'
+    },
+    imports: [
+        NgStyle,
+        NgTemplateOutlet,
+        ScrollerComponent,
+    ],
 })
 export class DataTableRowWrapperComponent implements DoCheck {
   @Input() innerWidth: number;

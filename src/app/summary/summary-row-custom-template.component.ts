@@ -1,7 +1,8 @@
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ColumnMode } from 'projects/swimlane/ngx-datatable/src/public-api';
 
 @Component({
+  standalone: false,
   selector: 'summary-row-custom-template-demo',
   template: `
     <div>
@@ -37,6 +38,7 @@ import { ColumnMode } from 'projects/swimlane/ngx-datatable/src/public-api';
       </ng-template>
     </div>
     `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./summary-row-custom-template.component.scss']
 })
 export class SummaryRowCustomTemplateComponent implements OnInit {

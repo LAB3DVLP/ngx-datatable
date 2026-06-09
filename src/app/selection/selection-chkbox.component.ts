@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { ColumnMode, SelectionType } from 'projects/swimlane/ngx-datatable/src/public-api';
 
 @Component({
+  standalone: false,
   selector: 'chkbox-selection-demo',
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `
     <div>
       <h3>

@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ColumnMode } from 'projects/swimlane/ngx-datatable/src/public-api';
 
 @Component({
+  standalone: false,
   selector: 'default-sorting-demo',
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `
     <div>
       <h3>

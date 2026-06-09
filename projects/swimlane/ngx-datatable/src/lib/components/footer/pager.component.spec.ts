@@ -10,8 +10,8 @@ describe('DataTablePagerComponent', () => {
   // provide our implementations or mocks to the dependency injector
   beforeEach(() =>
     TestBed.configureTestingModule({
-      declarations: [DataTablePagerComponent]
-    })
+    imports: [DataTablePagerComponent]
+})
   );
 
   beforeEach(

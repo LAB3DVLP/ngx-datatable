@@ -1,12 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { MockServerResultsService } from './mock-server-results-service';
 import { CorporateEmployee } from './model/corporate-employee';
 import { Page } from './model/page';
 import { ColumnMode } from 'projects/swimlane/ngx-datatable/src/public-api';
 
 @Component({
+  standalone: false,
   selector: 'paging-scrolling-novirtualization-demo',
   providers: [MockServerResultsService],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `
     <div>
       <h3>

@@ -9,7 +9,7 @@ export const addMatchers = () =>
 /**
  * `toHaveText()` adapted from https://angular.io/guide/testing
  */
-function toHaveText(): jasmine.CustomMatcher {
+function toHaveText(util: any): jasmine.CustomMatcher {
   return {
     compare(actual: any, expectedText: string, expectationFailOutput?: any): jasmine.CustomMatcherResult {
       const actualText = elementText(actual);
@@ -49,7 +49,7 @@ function elementText(n: any): string {
 /**
  * adapted from https://github.com/ng-bootstrap/ng-bootstrap/blob/master/src/test/matchers.ts
  */
-function toHaveCssClass(util, customEqualityTests) {
+function toHaveCssClass(util: any): jasmine.CustomMatcher {
   return { compare: buildError(false), negativeCompare: buildError(true) };
 
   function buildError(isNot: boolean) {

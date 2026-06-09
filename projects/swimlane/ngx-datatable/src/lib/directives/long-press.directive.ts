@@ -3,7 +3,7 @@ import { Observable, Subscription, fromEvent } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { MouseEvent } from '../events';
 
-@Directive({ selector: '[long-press]', standalone: false })
+@Directive({ selector: '[long-press]' })
 export class LongPressDirective implements OnDestroy {
   @Input() pressEnabled: boolean = true;
   @Input() pressModel: any;

@@ -1,8 +1,10 @@
 import { Component, Output, EventEmitter, ChangeDetectionStrategy, Input } from '@angular/core';
 import { DatatableFooterDirective } from './footer.directive';
+import { NgClass, NgTemplateOutlet } from '@angular/common';
+import { DataTablePagerComponent } from './pager.component';
 @Component({
-  selector: 'datatable-footer',
-  template: `
+    selector: 'datatable-footer',
+    template: `
     <div
       class="datatable-footer-inner"
       [ngClass]="{ 'selected-count': selectedMessage }"
@@ -45,11 +47,11 @@ import { DatatableFooterDirective } from './footer.directive';
       }
     </div>
     `,
-  host: {
-    class: 'datatable-footer'
-  },
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false
+    host: {
+        class: 'datatable-footer'
+    },
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [NgClass, NgTemplateOutlet, DataTablePagerComponent]
 })
 export class DataTableFooterComponent {
   @Input() footerHeight: number;

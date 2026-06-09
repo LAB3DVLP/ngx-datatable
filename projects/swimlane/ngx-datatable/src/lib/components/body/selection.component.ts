@@ -13,10 +13,9 @@ export interface Model {
 }
 
 @Component({
-  selector: 'datatable-selection',
-  template: ` <ng-content></ng-content> `,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+    selector: 'datatable-selection',
+    template: ` <ng-content></ng-content> `,
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DataTableSelectionComponent {
   @Input() rows: any[];

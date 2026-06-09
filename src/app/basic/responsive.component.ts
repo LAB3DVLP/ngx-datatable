@@ -1,7 +1,8 @@
-import { Component, ViewEncapsulation, ViewChild } from '@angular/core';
+import { Component, ViewEncapsulation, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { ColumnMode } from 'projects/swimlane/ngx-datatable/src/public-api';
 
 @Component({
+  standalone: false,
   selector: 'responsive-demo',
   styles: [
     `
@@ -111,6 +112,7 @@ import { ColumnMode } from 'projects/swimlane/ngx-datatable/src/public-api';
       appear in the row detail view.
     </div>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   encapsulation: ViewEncapsulation.None
 })
 export class ResponsiveComponent {

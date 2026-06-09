@@ -1,13 +1,15 @@
 import { TestBed, ComponentFixture, waitForAsync } from '@angular/core/testing';
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
 import { ColumnChangesService } from '../../services/column-changes.service';
 import { DataTableColumnDirective } from './column.directive';
 
 @Component({
-  selector: 'test-fixture-component',
-  template: `
+  standalone: false,
+    selector: 'test-fixture-component',
+    changeDetection: ChangeDetectionStrategy.Eager,
+    template: `
     <ngx-datatable-column id="t1"></ngx-datatable-column>
     <ngx-datatable-column id="t2" [name]="columnName">
       <ng-template></ng-template>
@@ -27,16 +29,16 @@ describe('DataTableColumnDirective', () => {
   // provide our implementations or mocks to the dependency injector
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [DataTableColumnDirective, TestFixtureComponent],
-      providers: [
+    imports: [DataTableColumnDirective, TestFixtureComponent],
+    providers: [
         {
-          provide: ColumnChangesService,
-          useValue: {
-            onInputChange: jasmine.createSpy('onInputChange')
-          }
+            provide: ColumnChangesService,
+            useValue: {
+                onInputChange: jasmine.createSpy('onInputChange')
+            }
         }
-      ]
-    });
+    ]
+});
   });
 
   beforeEach(

@@ -45,17 +45,21 @@ import { DimensionsHelper } from '../services/dimensions-helper.service';
 import { throttleable } from '../utils/throttle';
 import { forceFillColumnWidths, adjustColumnWidths } from '../utils/math';
 import { sortRows } from '../utils/sort';
+import { VisibilityDirective } from '../directives/visibility.directive';
+import { DataTableFooterComponent } from './footer/footer.component';
+import { ScrollerComponent } from './body/scroller.component';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
-  selector: 'ngx-datatable',
-  templateUrl: './datatable.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  encapsulation: ViewEncapsulation.None,
-  styleUrls: ['./datatable.component.scss'],
-  host: {
-    class: 'ngx-datatable'
-  },
-  standalone: false
+    selector: 'ngx-datatable',
+    templateUrl: './datatable.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    encapsulation: ViewEncapsulation.None,
+    styleUrls: ['./datatable.component.scss'],
+    host: {
+        class: 'ngx-datatable'
+    },
+    imports: [VisibilityDirective, DataTableHeaderComponent, DataTableBodyComponent, DataTableFooterComponent, ScrollerComponent, AsyncPipe]
 })
 export class DatatableComponent implements OnInit, DoCheck, AfterViewInit {
   /**

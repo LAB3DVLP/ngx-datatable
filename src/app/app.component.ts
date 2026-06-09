@@ -1,8 +1,9 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { LocationStrategy, HashLocationStrategy, Location } from '@angular/common';
 import packageInfo from 'projects/swimlane/ngx-datatable/package.json';
 
 @Component({
+  standalone: false,
   selector: 'app-root',
   templateUrl: './app.component.html',
   encapsulation: ViewEncapsulation.None,
@@ -12,6 +13,7 @@ import packageInfo from 'projects/swimlane/ngx-datatable/package.json';
     '../../projects/swimlane/ngx-datatable/src/lib/themes/dark.scss',
     '../../projects/swimlane/ngx-datatable/src/lib/themes/bootstrap.scss'
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   providers: [
     Location,
     {

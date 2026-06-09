@@ -1,13 +1,15 @@
 import { TestBed, ComponentFixture, waitForAsync } from '@angular/core/testing';
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { By } from '@angular/platform-browser';
 
 import { DatatableGroupHeaderDirective } from './body-group-header.directive';
 import { DatatableGroupHeaderTemplateDirective } from './body-group-header-template.directive';
 
 @Component({
-  selector: 'test-fixture-component',
-  template: `
+  standalone: false,
+    selector: 'test-fixture-component',
+    changeDetection: ChangeDetectionStrategy.Eager,
+    template: `
     <ngx-datatable-group-header id="t1"></ngx-datatable-group-header>
     <ngx-datatable-group-header id="t2">
       <ng-template ngx-datatable-group-header-template></ng-template>
@@ -24,8 +26,8 @@ describe('DatatableGroupHeaderDirective', () => {
   // provide our implementations or mocks to the dependency injector
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [DatatableGroupHeaderDirective, DatatableGroupHeaderTemplateDirective, TestFixtureComponent]
-    });
+    imports: [DatatableGroupHeaderDirective, DatatableGroupHeaderTemplateDirective, TestFixtureComponent]
+});
   });
 
   beforeEach(

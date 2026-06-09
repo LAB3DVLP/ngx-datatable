@@ -14,16 +14,18 @@ import {
   SkipSelf
 } from '@angular/core';
 
-import { TreeStatus } from './body-cell.component';
+import { TreeStatus, DataTableBodyCellComponent } from './body-cell.component';
 import { columnsByPin, columnGroupWidths, columnsByPinArr } from '../../utils/column';
 import { Keys } from '../../utils/keys';
 import { ScrollbarHelper } from '../../services/scrollbar-helper.service';
 import { translateXY } from '../../utils/translate';
+import { NgStyle } from '@angular/common';
+import { ScrollerComponent } from './scroller.component';
 
 @Component({
-  selector: 'datatable-body-row',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
+    selector: 'datatable-body-row',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    template: `
     @for (colGroup of _columnsByPin; track trackByGroups(i, colGroup); let i = $index) {
       <div
         class="datatable-row-{{ colGroup.type }} datatable-row-group"
@@ -50,7 +52,11 @@ import { translateXY } from '../../utils/translate';
       </div>
     }
     `,
-  standalone: false,
+    imports: [
+        NgStyle,
+        DataTableBodyCellComponent,
+        ScrollerComponent,
+    ],
 })
 export class DataTableBodyRowComponent implements DoCheck {
   @Input() set columns(val: any[]) {

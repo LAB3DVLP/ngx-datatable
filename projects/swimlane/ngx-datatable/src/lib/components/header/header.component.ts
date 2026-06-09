@@ -13,10 +13,16 @@ import { SortType } from '../../types/sort.type';
 import { SelectionType } from '../../types/selection.type';
 import { DataTableColumnDirective } from '../columns/column.directive';
 import { translateXY } from '../../utils/translate';
+import { OrderableDirective } from '../../directives/orderable.directive';
+import { NgStyle } from '@angular/common';
+import { DataTableHeaderCellComponent } from './header-cell.component';
+import { ResizeableDirective } from '../../directives/resizeable.directive';
+import { LongPressDirective } from '../../directives/long-press.directive';
+import { DraggableDirective } from '../../directives/draggable.directive';
 
 @Component({
-  selector: 'datatable-header',
-  template: `
+    selector: 'datatable-header',
+    template: `
     <div
       role="row"
       orderable
@@ -68,11 +74,18 @@ import { translateXY } from '../../utils/translate';
       }
     </div>
     `,
-  host: {
-    class: 'datatable-header'
-  },
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: false,
+    host: {
+        class: 'datatable-header'
+    },
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [
+        OrderableDirective,
+        NgStyle,
+        DataTableHeaderCellComponent,
+        ResizeableDirective,
+        LongPressDirective,
+        DraggableDirective,
+    ],
 })
 export class DataTableHeaderComponent implements OnDestroy {
   @Input() sortAscendingIcon: any;

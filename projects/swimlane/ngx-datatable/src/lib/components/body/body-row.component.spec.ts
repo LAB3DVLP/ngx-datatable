@@ -1,6 +1,7 @@
 import { TestBed, ComponentFixture, waitForAsync } from '@angular/core/testing';
 import { DataTableBodyRowComponent } from './body-row.component';
 import { DataTableBodyCellComponent } from './body-cell.component';
+import { ScrollbarHelper } from '../../services/scrollbar-helper.service';
 
 describe('DataTableBodyRowComponent', () => {
   let fixture: ComponentFixture<DataTableBodyRowComponent>;
@@ -10,8 +11,9 @@ describe('DataTableBodyRowComponent', () => {
   // provide our implementations or mocks to the dependency injector
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [DataTableBodyCellComponent, DataTableBodyRowComponent]
-    });
+    imports: [DataTableBodyCellComponent, DataTableBodyRowComponent],
+    providers: [ScrollbarHelper]
+});
   });
 
   beforeEach(
@@ -24,11 +26,9 @@ describe('DataTableBodyRowComponent', () => {
     })
   );
 
-  /*
   describe('fixture', () => {
     it('should have a component instance', () => {
       expect(component).toBeTruthy();
     });
   });
-  */
 });

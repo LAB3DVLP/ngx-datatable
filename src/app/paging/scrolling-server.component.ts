@@ -1,4 +1,4 @@
-import { Component, ElementRef, Injectable } from '@angular/core';
+import { Component, ElementRef, Injectable, ChangeDetectionStrategy } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { delay, map } from 'rxjs/operators';
 import { CorporateEmployee } from './model/corporate-employee';
@@ -25,6 +25,7 @@ export class MockServerResultsService {
 }
 
 @Component({
+  standalone: false,
   selector: 'server-scrolling-demo',
   providers: [MockServerResultsService],
   template: `
@@ -53,6 +54,7 @@ export class MockServerResultsService {
       ></ngx-datatable>
     </div>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./scrolling-server.component.css']
 })
 export class ServerScrollingComponent {

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { MockServerResultsService } from './mock-server-results-service';
 import { CorporateEmployee } from './model/corporate-employee';
 import { Page } from './model/page';
@@ -13,8 +13,10 @@ interface PageInfo {
 }
 
 @Component({
+  standalone: false,
   selector: 'virtual-paging-demo',
   providers: [MockServerResultsService],
+  changeDetection: ChangeDetectionStrategy.Eager,
   template: `
     <div>
       <h3>

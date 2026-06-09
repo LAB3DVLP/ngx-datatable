@@ -5,7 +5,7 @@ import { DataTableColumnCellTreeToggle } from './tree.directive';
 import { ColumnChangesService } from '../../services/column-changes.service';
 import { TableColumnProp } from '../../types/table-column.type';
 
-@Directive({ selector: 'ngx-datatable-column', standalone: false, })
+@Directive({ selector: 'ngx-datatable-column', })
 export class DataTableColumnDirective implements OnChanges {
   @Input() name: string;
   @Input() prop: TableColumnProp;
